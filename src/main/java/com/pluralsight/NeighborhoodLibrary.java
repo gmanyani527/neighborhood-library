@@ -83,10 +83,69 @@ public class NeighborhoodLibrary {
                         }
 
                         break;
-                        case 2: // Show Checked Out Books
+                        case 2:// Show Checked Out Books
+                            stillDeciding = true;
+                            for (Book book : books) {
+                                if (book.isCheckedOut()) {
+                                    System.out.println(book.getId() + " " + book.getIsbn() + " " + book.getTitle() + " - Checked Out By: " + book.getCheckedOutTo());
+                                }
+                            }
+
+                            while(stillDeciding) {
+                                System.out.println();
+                                System.out.println("Would you like to check in a book or go back to the home screen? \n (Select 1 or 2)");
+                                int input6 = scan.nextInt();
+                                scan.nextLine();
+                                if (input6 == 1) {
+                                    System.out.println("Enter book ID to be checked in: ");
+                                    int input7 = scan.nextInt();
+                                    scan.nextLine();
+                                    for (Book book : books) {
+                                        if (input7 == book.getId() && book.isCheckedOut()) {
+                                            book.checkIn();
+                                            System.out.println("Book has been checked in!");
+                                            System.out.println();
+                                            System.out.println("Do you have another book to check in? ");
+                                            String input8 = scan.nextLine();
+                                            if (!input8.equalsIgnoreCase("yes")) {
+                                                stillDeciding = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                                System.out.println();
+                                System.out.println("You have returned to the homepage! ");
+
                             break;
                         case 3: // Check In
+                            stillDeciding = true;
+                            while(stillDeciding) {
+                                System.out.println();
+                                System.out.println("Would you like to check in a book or go back to the home screen? \n (Select 1 or 2)");
+                                int input6 = scan.nextInt();
+                                scan.nextLine();
+                                if (input6 == 1) {
+                                    System.out.println("Enter book ID to be checked in: ");
+                                    int input7 = scan.nextInt();
+                                    scan.nextLine();
+                                    for (Book book : books) {
+                                        if (input7 == book.getId() && book.isCheckedOut()) {
+                                            book.checkIn();
+                                            System.out.println("Book has been checked in!");
+                                            System.out.println();
+                                            System.out.println("Do you have another book to check in? ");
+                                            String input8 = scan.nextLine();
+                                            if (!input8.equalsIgnoreCase("yes")) {
+                                                stillDeciding = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
                             break;
+
                         case 4: // Exit
                             System.out.println();
                             System.out.println("See ya next Time!");
