@@ -46,6 +46,7 @@ public class NeighborhoodLibrary {
             scan.nextLine();
                 switch (userInput) {
                     case 1: // Show Available Books
+                    stillDeciding = true;
 
                     for (Book book : books) {
                         if (!book.isCheckedOut()) {
@@ -54,7 +55,8 @@ public class NeighborhoodLibrary {
                     }
                         System.out.println();
                         while(stillDeciding) {
-                        System.out.println("Would you like to check out a book or exit to home screen? ");
+                           boolean found = false;
+                        System.out.println("Would you like to check out a book or exit to home screen? \n(yes/no) ");
                         String input2 = scan.nextLine();
 
                         if (input2.equalsIgnoreCase("yes")) {
@@ -65,7 +67,7 @@ public class NeighborhoodLibrary {
                             scan.nextLine();
 
                                 for (Book book : books) {
-                                    if (book.getId() == input4) {
+                                    if (input4 == book.getId()) {
                                         book.setCheckedOut(true);
                                         book.checkedOut(input3);
                                         System.out.println("Book Checked Out!");
@@ -75,7 +77,14 @@ public class NeighborhoodLibrary {
                                         if (input5.equalsIgnoreCase("no")) {
                                             stillDeciding = false;
                                         }
+                                        found = true;
+                                        break;
                                     }
+
+                                }
+                                if(!found){
+                                    System.out.println("This book was not checked out or does not exist");
+
                                 }
                             }else{
                             stillDeciding = false;
@@ -93,11 +102,16 @@ public class NeighborhoodLibrary {
 
                             while(stillDeciding) {
                                 System.out.println();
-                                System.out.println("Would you like to check in a book or go back to the home screen? \n (Select 1 or 2)");
-                                int input6 = scan.nextInt();
-                                scan.nextLine();
-                                if (input6 == 1) {
+                                System.out.println("Would you like to check in a book or go back to the home screen? \n (Select C or X)");
+                                String input6 = scan.nextLine();
+
+                                if (input6.equalsIgnoreCase("x")) {
+                                    stillDeciding = false;
+                                }
+                                if (input6.equalsIgnoreCase("c")) {
                                     System.out.println("Enter book ID to be checked in: ");
+
+                                    boolean found = false;
                                     int input7 = scan.nextInt();
                                     scan.nextLine();
                                     for (Book book : books) {
@@ -110,22 +124,35 @@ public class NeighborhoodLibrary {
                                             if (!input8.equalsIgnoreCase("yes")) {
                                                 stillDeciding = false;
                                             }
+                                            found = true;
+                                            break;
                                         }
                                     }
+                                    if (!found) {
+                                        System.out.println("This book was not checked out or does not exist");
+                                    }
+
+
                                 }
                             }
                                 System.out.println();
                                 System.out.println("You have returned to the homepage! ");
 
-                            break;
+                                break;
+
                         case 3: // Check In
                             stillDeciding = true;
+
                             while(stillDeciding) {
                                 System.out.println();
-                                System.out.println("Would you like to check in a book or go back to the home screen? \n (Select 1 or 2)");
-                                int input6 = scan.nextInt();
-                                scan.nextLine();
-                                if (input6 == 1) {
+                                System.out.println("Would you like to check in a book or go back to the home screen? \n (Select C or X)");
+                                String input6 = scan.nextLine();
+                                if (input6.equalsIgnoreCase("X")){
+                                     stillDeciding = false;
+                                     break;
+                             }
+                                if (input6.equalsIgnoreCase("C")) {
+                                    boolean found = false;
                                     System.out.println("Enter book ID to be checked in: ");
                                     int input7 = scan.nextInt();
                                     scan.nextLine();
@@ -139,11 +166,17 @@ public class NeighborhoodLibrary {
                                             if (!input8.equalsIgnoreCase("yes")) {
                                                 stillDeciding = false;
                                             }
+                                            found = true;
+                                            break;
                                         }
+                                    }
+                                    if (!found) {
+                                        System.out.println("This book was not checked out or does not exist");
                                     }
                                 }
                             }
-
+                            System.out.println();
+                            System.out.println("You have returned to the homepage! ");
                             break;
 
                         case 4: // Exit
@@ -153,7 +186,7 @@ public class NeighborhoodLibrary {
                             break;
                         default:
                             System.out.println("I did not understand the inputs. Can you try again? ");
-                            System.out.println("These are the four options: \n1. Show Available Books \n2. Show Checkedout Books \n3. Checked In A Book \n4. Exit ");
+
 
                             break;
                     }
